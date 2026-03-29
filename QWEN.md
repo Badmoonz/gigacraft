@@ -60,6 +60,12 @@ Pull in overlays when the repository or task calls for them:
 - Use version-aware documentation lookup when library or framework behavior may be sensitive.
 - Keep plans and reviews high signal and operational.
 
+## Optional Helpers
+
+- MCP helpers are optional.
+- Use repository-aware or semantic navigation helpers when available.
+- Use documentation lookup helpers when framework or library behavior is version-sensitive.
+
 ## Output Expectations
 
 Be concise and useful. Report:
