@@ -31,6 +31,15 @@ qwen extensions install <git-url>
 qwen extensions list
 ```
 
+## Optional Helpers
+
+You can use optional MCP helpers if you want stronger repository navigation or docs lookup:
+
+- Serena or `code-index-mcp` for repository navigation
+- Context7 for version-sensitive framework or library docs lookup
+
+These are optional helpers, not prerequisites for using `gigacraft`.
+
 ## Default Workflow
 
 Use the normal path for most backend work:
