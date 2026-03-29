@@ -1,11 +1,11 @@
 ---
-description: Convert an approved design into a concrete implementation plan.
+description: Manual fallback: convert an approved design into a concrete implementation plan.
 ---
 
 Use the `planner` agent.
 
 Goal:
-Produce a concrete, executable implementation plan from an approved design plan or spec.
+Produce a concrete, executable implementation plan from an approved design plan or spec when the user explicitly chooses the command path or when skills-first routing is unavailable.
 
 Process:
 

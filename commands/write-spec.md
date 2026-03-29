@@ -1,11 +1,11 @@
 ---
-description: Write a design plan or spec before implementation planning starts.
+description: Manual fallback: write a design plan or spec before implementation planning starts.
 ---
 
 Use the `architect` agent.
 
 Goal:
-Write a design plan or spec that defines what should be built before implementation planning begins.
+Write a design plan or spec that defines what should be built before implementation planning begins when the user explicitly chooses the command path or when skills-first routing is unavailable.
 
 Process:
 

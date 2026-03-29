@@ -1,11 +1,11 @@
 ---
-description: Critically review current changes against the approved design and implementation plan.
+description: Manual fallback: critically review current changes against the approved design and implementation plan.
 ---
 
 Use the `reviewer` agent.
 
 Goal:
-Assess whether the current changes correctly implement the approved plan and are safe to merge.
+Assess whether the current changes correctly implement the approved plan and are safe to merge when the user explicitly chooses the command path or when skills-first routing is unavailable.
 
 Process:
 

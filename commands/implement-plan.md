@@ -1,11 +1,11 @@
 ---
-description: Execute an approved implementation plan with narrow scope and incremental validation.
+description: Manual fallback: execute an approved implementation plan with narrow scope and incremental validation.
 ---
 
 Use the `implementer` agent.
 
 Goal:
-Execute an approved plan safely and with minimal scope creep.
+Execute an approved plan safely and with minimal scope creep when the user explicitly chooses the command path or when skills-first routing is unavailable.
 
 Process:
 
