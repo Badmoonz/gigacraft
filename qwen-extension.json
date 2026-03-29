@@ -2,5 +2,8 @@
   "name": "gigacraft",
   "version": "0.1.0",
   "description": "Structured backend workflow extension for Qwen Code and gigacraft.",
-  "contextFileName": "QWEN.md"
+  "contextFileName": "QWEN.md",
+  "commands": "commands",
+  "skills": "skills",
+  "agents": "agents"
 }
