@@ -2,9 +2,9 @@
 
 `gigacraft` is a lightweight native Qwen extension for structured backend work. It turns the draft in `qwen_superpowers_agent_draft.md` into an installable prompt pack with:
 
-- a staged workflow for spec, plan, implementation, review, and optional refactor
+- a skills-first workflow for spec, plan, implementation, review, and verification
 - focused subagents for each workflow stage
-- thin slash-command entrypoints
+- supported manual fallback commands when explicit stage control is preferable
 - neutral backend standards with Java and Go overlays
 
 ## Why This Repo Exists
@@ -42,23 +42,31 @@ These are optional helpers, not prerequisites for using `gigacraft`.
 
 ## Default Workflow
 
-Use the normal path for most backend work:
+Use the skills-first path for most backend work:
+
+1. `using-gigacraft` routes to the right workflow stage
+2. `brainstorming`
+3. `writing-plans`
+4. `subagent-driven-development` or `executing-plans`
+5. `requesting-code-review`
+6. `verification-before-completion`
+
+This keeps design, planning, implementation, review, and verification clearly separated while making skills the default workflow surface.
+
+## Manual Fallback Commands
+
+Slash commands remain supported when you want explicit control or when automatic stage routing is not enough:
 
 1. `/write-spec`
 2. `/write-plan`
 3. `/implement-plan`
 4. `/review-changes`
 
-This keeps design, planning, implementation, and review clearly separated.
+Advanced/manual commands remain available for the chunked and scoped-refactor paths:
 
-## Advanced Workflow
-
-Use the advanced path only when the work spans multiple logical chunks or needs tighter orchestration:
-
-1. `/write-chunked-plan`
-2. `/implement-chunked-plan`
-3. `/review-changes`
-4. `/refactor-scope` if a scoped structural follow-up is explicitly approved
+- `/write-chunked-plan`
+- `/implement-chunked-plan`
+- `/refactor-scope`
 
 ## Repository Layout
 
@@ -68,6 +76,7 @@ Use the advanced path only when the work spans multiple logical chunks or needs 
 ├── QWEN.md
 ├── agents/
 ├── commands/
+├── skills/
 ├── context/
 ├── plans/
 └── docs/
@@ -75,11 +84,16 @@ Use the advanced path only when the work spans multiple logical chunks or needs 
 
 ### Key directories
 
-- `agents/`: focused role prompts for architect, planner, implementer, reviewer, refactor, and orchestrator
-- `commands/`: slash-command entrypoints that launch the workflow stages
+- `skills/`: primary workflow policy for design, planning, execution, review, and verification
+- `agents/`: focused subagent role prompts for architect, planner, implementer, reviewer, refactor, and orchestrator
+- `commands/`: supported manual fallback entrypoints for stage-by-stage control
 - `context/`: reusable neutral backend rules plus Java, Go, testing, and service overlays
 - `plans/`: example durable artifacts produced by the workflow
 - `docs/superpowers/`: design and implementation planning documents for this repo itself
+
+## Maintainer Notes
+
+If you are developing `gigacraft` itself, copy `AGENTS.example.md` to a local `AGENTS.md` and add `AGENTS.md` to `.git/info/exclude`. Keep maintainer-only guidance there; keep shipped extension behavior in the tracked prompt assets.
 
 ## Neutral Backend Default
 
