@@ -1,48 +1,48 @@
 # gigacraft
 
-`gigacraft` is a lightweight native Qwen extension for structured backend work. It turns the draft in `qwen_superpowers_agent_draft.md` into an installable prompt pack with:
+`gigacraft` — это легковесное расширение для структурированной backend-разработки в GigaCode. Цель проекта — адаптировать `obra/superpowers` под среду разработки GigaCode и доступную в ней модель `Qwen-Coder-Next`, превратив черновик из `qwen_superpowers_agent_draft.md` в устанавливаемый набор промптов со следующими возможностями:
 
-- a skills-first workflow for spec, plan, implementation, review, and verification
-- focused subagents for each workflow stage
-- supported manual fallback commands when explicit stage control is preferable
-- neutral backend standards with Java and Go overlays
+- `skills-first` workflow для spec, plan, implementation, review и verification
+- сфокусированные субагенты для каждого этапа workflow
+- поддерживаемые fallback-команды для ручного управления этапами, когда это удобнее
+- нейтральные backend-стандарты с Java- и Go-оверлеями
 
-## Why This Repo Exists
+## Зачем Нужен Этот Репозиторий
 
-This extension is intended for a personal `gigacraft` fork of Qwen Code. The goal is to keep the workflow disciplined without adding runtime services or MCP complexity in v1.
+Это расширение предназначено для персонального форка GigaCode под названием `gigacraft`. Его задача — перенести workflow из `obra/superpowers` в среду GigaCode в форме, которая хорошо подходит доступной модели `Qwen-Coder-Next`, сохранив дисциплинированный процесс без добавления runtime-сервисов и MCP-сложности в v1.
 
-## Install
+## Установка
 
-### Link from a local checkout
+### Подключение из локального checkout
 
 ```bash
-qwen extensions link /Users/kozlov/Workspace/gigacraft
+qwen extensions link  ..gigacraft
 ```
 
-### Install from a git repository
+### Установка из git-репозитория
 
 ```bash
 qwen extensions install <git-url>
 ```
 
-### Inspect installed extensions
+### Просмотр установленных расширений
 
 ```bash
 qwen extensions list
 ```
 
-## Optional Helpers
+## Дополнительные Помощники
 
-You can use optional MCP helpers if you want stronger repository navigation or docs lookup:
+При желании можно использовать дополнительные MCP-помощники для более удобной навигации по репозиторию и поиска документации:
 
-- Serena or `code-index-mcp` for repository navigation
-- Context7 for version-sensitive framework or library docs lookup
+- Serena или `code-index-mcp` для навигации по репозиторию
+- Context7 для поиска документации по фреймворкам и библиотекам с учетом версий
 
-These are optional helpers, not prerequisites for using `gigacraft`.
+Это опциональные помощники, а не обязательные зависимости для использования `gigacraft`.
 
-## Default Workflow
+## Workflow По Умолчанию
 
-Use the skills-first path for most backend work:
+Для большинства backend-задач используйте `skills-first` путь:
 
 1. `using-gigacraft` routes to the right workflow stage
 2. `brainstorming`
@@ -51,23 +51,22 @@ Use the skills-first path for most backend work:
 5. `requesting-code-review`
 6. `verification-before-completion`
 
-This keeps design, planning, implementation, review, and verification clearly separated while making skills the default workflow surface.
+Такой подход четко разделяет design, planning, implementation, review и verification, делая `skills` основным интерфейсом workflow.
 
-## Manual Fallback Commands
+## Ручные Fallback-Команды
 
-Slash commands remain supported when you want explicit control or when automatic stage routing is not enough. They are thin redirects to the corresponding `gigacraft:*` skills rather than separate workflow definitions:
+Slash-команды остаются доступными, если вам нужен явный контроль или автоматического stage routing недостаточно. Это тонкие редиректы на соответствующие `gigacraft:*` skills, а не отдельные определения workflow:
 
 1. `/write-spec`
 2. `/write-plan`
-3. `/write-plan-v2` (compatibility alias to `/write-plan` during planner migration)
 4. `/implement-plan`
 5. `/review-changes`
 
-Additional manual command:
+Дополнительная ручная команда:
 
 - `/refactor-scope`
 
-## Repository Layout
+## Структура Репозитория
 
 ```text
 .
@@ -81,33 +80,33 @@ Additional manual command:
 └── docs/
 ```
 
-### Key directories
+### Основные директории
 
-- `skills/`: primary workflow policy for design, planning, execution, review, and verification
-- `agents/`: focused subagent role prompts for architect, api-designer, spec-reviewer, sre-skeptic, planner, implementer, code-reviewer, and refactor
-- `commands/`: supported manual fallback entrypoints for stage-by-stage control
-- `context/`: reusable neutral backend rules plus Java, Go, testing, and service overlays
-- `plans/`: example durable artifacts produced by the workflow
-- `docs/gigacraft/`: design and implementation planning documents for this repo itself
+- `skills/`: основная workflow-политика для design, planning, execution, review и verification
+- `agents/`: сфокусированные role-prompts для субагентов `architect`, `api-designer`, `spec-reviewer`, `sre-skeptic`, `planner`, `implementer`, `code-reviewer` и `refactor`
+- `commands/`: поддерживаемые ручные точки входа для поэтапного управления
+- `context/`: переиспользуемые нейтральные backend-правила и оверлеи для Java, Go, testing и service-задач
+- `plans/`: примеры устойчивых артефактов, создаваемых workflow
+- `docs/gigacraft/`: design- и implementation-planning-документы для самого этого репозитория
 
-## Maintainer Notes
+## Заметки Для Maintainer'ов
 
-If you are developing `gigacraft` itself, copy `AGENTS.example.md` to a local `AGENTS.md` and add `AGENTS.md` to `.git/info/exclude`. Keep maintainer-only guidance there; keep shipped extension behavior in the tracked prompt assets.
+Если вы разрабатываете сам `gigacraft`, скопируйте `AGENTS.example.md` в локальный `AGENTS.md` и добавьте `AGENTS.md` в `.git/info/exclude`. Храните там только maintainer-специфичные инструкции; поведение, которое должно поставляться вместе с расширением, оставляйте в отслеживаемых prompt assets.
 
-## Neutral Backend Default
+## Нейтральный Backend По Умолчанию
 
-The extension defaults to a neutral backend posture. Java- and Go-specific guidance is available as overlays instead of being hardcoded into the root prompt. That keeps the extension broadly useful across mixed backend codebases.
+Расширение по умолчанию придерживается нейтральной backend-позиции. Java- и Go-специфичные рекомендации доступны как оверлеи, а не зашиты прямо в root prompt. Это делает расширение полезным для смешанных backend-кодовых баз.
 
-## Scope Of V1
+## Объем V1
 
-- native Qwen extension
-- markdown-first assets only
-- no MCP servers
-- no Gemini-specific manifest yet
+- нативное расширение для Qwen
+- только markdown-first assets
+- без MCP-серверов
+- пока без Gemini-специфичного manifest
 
-## Future Ideas
+## Идеи На Будущее
 
-- Gemini compatibility layer
-- optional MCP integrations
-- stronger Java-heavy or Go-heavy profile variants
-- release automation once the prompt surface stabilizes
+- слой совместимости с Gemini
+- опциональные MCP-интеграции
+- более выраженные профильные варианты для Java-heavy или Go-heavy сценариев
+- автоматизация релизов после стабилизации prompt surface
