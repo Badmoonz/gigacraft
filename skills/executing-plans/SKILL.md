@@ -16,7 +16,7 @@ Execute an approved implementation plan or plan pack inline while preserving nar
 3. Work through the plan in order.
 4. Keep each implementation batch small and reviewable.
 5. Validate after meaningful changes, using the test plan when present.
-6. Update the status companion when present.
+6. Update the status companion when present. Record the completed task id, next task id, last command run, last validation result, and any blocker in append-only form.
 7. Hand off to review before declaring completion.
 
 ## Rules

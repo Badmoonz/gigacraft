@@ -27,14 +27,17 @@ For non-trivial or autonomous execution, the plan pack should usually include co
    - main plan: `docs/gigacraft/plans/YYYY-MM-DD-<topic>.md`
    - status companion: `docs/gigacraft/plans/YYYY-MM-DD-<topic>-status.md`
    - test plan companion: `docs/gigacraft/plans/YYYY-MM-DD-<topic>-test-plan.md`
-7. Break the work into atomic, resumable tasks in strict execution order. Prefer one independently verifiable behavior unit per task: one endpoint, one middleware, one storage method, one migration, one config surface, or one integration check.
-8. Group tasks into milestones. For each milestone define a goal, definition of done, validation gate, rollback boundary, and stop/replan rule.
-9. Separate behavioral validation from compile/lint/build checks. For externally visible behavior, include happy-path and key negative-case checks instead of treating build success as proof.
-10. Prefer delta-from-spec planning: do not restate architecture, requirements, or examples already covered well in the design.
-11. Save the plan to `docs/gigacraft/plans/YYYY-MM-DD-<topic>.md` unless local context calls for a neighboring file. Save companion files beside it when the plan is non-trivial.
-12. Run the self-review checklist from `Self-Review`.
-13. Ask the user to review the written plan pack before any implementation starts.
-14. Only after explicit user approval, offer the next execution choice:
+7. Freeze one architecture and dependency path for execution. Resolve `A or B` choices into a single selected option, or surface them as blocking questions before finalizing the plan.
+8. Break the work into atomic, resumable tasks in strict execution order. Prefer one independently verifiable behavior unit per task: one endpoint, one middleware, one storage method, one migration, one config surface, or one integration check.
+9. Group tasks into milestones. For each milestone define a goal, definition of done, validation gate, rollback boundary, and stop/replan rule.
+10. Validate task dependencies before finalizing the plan. No task may depend on an artifact, contract, provider abstraction, or helper that is only created later in the sequence.
+11. Cross-check the file inventory. Every file, directory, command entry point, or test artifact referenced anywhere in the plan pack must appear in the touched-files inventory or in an explicit external-prerequisites section.
+12. Separate behavioral validation from compile/lint/build checks. For externally visible behavior, include happy-path and key negative-case checks instead of treating build success as proof.
+13. Prefer delta-from-spec planning: do not restate architecture, requirements, or examples already covered well in the design.
+14. Save the plan to `docs/gigacraft/plans/YYYY-MM-DD-<topic>.md` unless local context calls for a neighboring file. Save companion files beside it when the plan is non-trivial.
+15. Run the self-review checklist from `Self-Review`.
+16. Ask the user to review the written plan pack before any implementation starts.
+17. Only after explicit user approval, offer the next execution choice:
    - `subagent-driven-development`
    - `executing-plans`
 
@@ -46,14 +49,16 @@ Main plan:
 
 1. Summary
 2. Reference to approved spec or design plan
-3. Spec gaps and allowed normalizations
-4. Scope and non-goals
-5. Touched files and responsibilities
-6. Milestones with definitions of done
-7. Ordered atomic tasks
-8. Validation strategy and milestone gates
-9. Rollback boundaries and compatibility notes
-10. Known pitfalls and unknowns
+3. Frozen implementation decisions
+4. Spec gaps, open questions, and allowed normalizations
+5. Scope and non-goals
+6. Touched files and responsibilities
+7. Explicit design deviations, if any
+8. Milestones with definitions of done
+9. Ordered atomic tasks
+10. Validation strategy and milestone gates
+11. Rollback boundaries and compatibility notes
+12. Known pitfalls and unknowns
 
 Status companion for non-trivial plans:
 
@@ -61,14 +66,16 @@ Status companion for non-trivial plans:
 - Milestone status table
 - Current task
 - Next task
+- Append-only execution log
 - Stop/replan triggers
 - Decisions and assumptions
-- Last completed validation
+- Last completed command and validation
 - Blockers
 
 Test plan companion for non-trivial plans:
 
-- Validation assumptions and exact commands
+- Validation assumptions, prerequisites, and exact commands
+- Server run command and required env
 - Step-level checks
 - Milestone gates
 - End-to-end happy-path checks
@@ -92,11 +99,17 @@ Optional sections:
 - Use the same base name for companion files when they exist: `...-status.md` and `...-test-plan.md`.
 - Every task must be actionable without reinterpretation.
 - Each task should name the exact file or artifact, the intended outcome, any prerequisite dependency, and a direct verification method.
+- Every prerequisite named by a task must be satisfied by an earlier task, milestone, or explicit external prerequisite.
 - Each milestone must state its definition of done, validation gate, rollback boundary, and stop/replan rule.
 - Do not silently change product behavior under the label of `normalization`.
+- Do not leave competing architectures, dependency choices, or package layouts in the final plan. Freeze one path or stop for user input.
 - If the design and repository evidence disagree on file placement, ownership, or architecture boundaries, call out the conflict explicitly instead of picking one silently.
+- If the final plan intentionally deviates from the approved design, record that in an explicit `Design deviations` section with rationale.
+- Every artifact referenced later in the plan pack must appear in the touched-files inventory or in an explicit external-prerequisites section.
 - Compile, lint, and build checks are partial signals, not behavioral proof.
 - For API, auth, persistence, contract, or user-visible behavior, include behavioral validation beyond compile or build success.
+- Manual, browser-driven, or external-provider checks cannot be the only validation gate for a milestone intended for autonomous execution.
+- Every validation step must be runnable as written, with any prerequisites and expected result stated explicitly.
 - Tests are not a postscript. If behavior changes depend on tests for confidence, plan those tests alongside the relevant implementation tasks even if final end-to-end checks happen later.
 - Surface assumptions, term normalization, and remaining unknowns explicitly.
 - Omit irrelevant sections instead of filling them with boilerplate.
@@ -116,7 +129,12 @@ Optional sections:
 - Bundling multiple independently verifiable changes into one step
 - Silent product-contract changes hidden inside `normalization`
 - Locking in file placement or module boundaries without reconciling them with the approved design and repo evidence
+- Referencing files, commands, or entry points later in the plan that never appeared in the touched-files inventory
+- Using `or`, `either`, or fallback library choices inside the final implementation plan instead of freezing one path
+- Dependency order that asks the executor to build consumers before their providers, contracts, or helpers exist
 - Compile-only validation for auth, API, persistence, migrations, or ownership-sensitive behavior
+- Manual OAuth/browser testing as the only milestone gate for an autonomous plan
+- Coverage claims without a runnable command that actually measures coverage
 - Saying tests happen `later` while earlier tasks already rely on those tests for real confidence
 - Multi-step plans with no current phase, milestone status, or resume protocol
 
@@ -125,13 +143,17 @@ Optional sections:
 After writing the plan, review it once yourself before handing it off:
 
 1. Spec coverage: can you point from each major requirement or constraint in the design to a task, milestone gate, or test-plan check?
-2. Contract discipline: make sure `normalization` did not silently change business behavior, API semantics, or validation rules from the approved design.
-3. Placeholder and vagueness scan: remove `TODO`, `TBD`, implied decisions, and vague verbs that hide real work.
-4. Naming consistency: make sure types, flags, enums, endpoints, and file names are consistent across the whole plan pack.
-5. Atomicity and resumability: confirm a fresh agent can identify the current milestone, next task, stop rule, and direct verification path without rereading chat history.
-6. Test realism: confirm that externally visible behavior has behavioral checks, not just compile or build checks.
-7. Rollback sanity: confirm rollback notes are tied to milestone boundaries or state changes, not a hand-wavy global reset.
-8. Compactness check: cut repeated spec material, duplicated validation sections, and any boilerplate that does not change execution clarity.
+2. Decision freeze: make sure architecture choices, library choices, and package layout are frozen to one execution path. Replace `or` branches with one selected option or escalate to the user.
+3. Contract discipline: make sure `normalization` did not silently change business behavior, API semantics, or validation rules from the approved design.
+4. Inventory completeness: verify that every referenced file, command entry point, test file, and helper artifact appears in touched files or explicit external prerequisites.
+5. Dependency order: verify every task precondition points to something that already exists earlier in the plan.
+6. Placeholder and vagueness scan: remove `TODO`, `TBD`, implied decisions, and vague verbs that hide real work.
+7. Naming consistency: make sure types, flags, enums, endpoints, and file names are consistent across the whole plan pack.
+8. Atomicity and resumability: confirm a fresh agent can identify the current milestone, next task, stop rule, and direct verification path without rereading chat history.
+9. Validation realism: confirm that every milestone gate is runnable and deterministic enough for the intended execution mode.
+10. Test realism: confirm that externally visible behavior has behavioral checks, not just compile or build checks.
+11. Rollback sanity: confirm rollback notes are tied to milestone boundaries or state changes, not a hand-wavy global reset.
+12. Compactness check: cut repeated spec material, duplicated validation sections, and any boilerplate that does not change execution clarity.
 
 ## Execution Handoff
 

@@ -18,6 +18,9 @@ Primary failure modes to avoid:
 - creating tasks that are too coarse for autonomous execution
 - relying on compile-only validation for behavior-heavy work
 - locking in file placement or architecture choices without reconciling repo evidence and the approved design
+- leaving `A or B` implementation choices unresolved inside the final plan
+- referencing files, commands, or entry points later in the plan that were never declared in the inventory
+- ordering tasks so handlers or consumers appear before the provider abstractions, contracts, or helpers they require
 - producing a plan that cannot be resumed cleanly by a fresh agent
 
 Rules:
@@ -29,15 +32,20 @@ Rules:
 - Map touched files and artifacts before the task list. Note what each one is responsible for.
 - Prefer minimal-diff plans that fit existing repository patterns.
 - Only normalize naming or clerical inconsistencies. If a change would affect API behavior, business rules, auth semantics, or validation rules, surface it as a spec gap or open question instead of deciding silently.
+- Freeze one execution path. Do not leave alternative libraries, package layouts, or architecture branches in the final plan unless the user explicitly asked to preserve the choice.
 - If the design and repository evidence disagree on file placement, ownership, or architecture boundaries, call out the conflict explicitly instead of silently choosing one side.
+- If the final plan intentionally deviates from the approved design, record the deviation explicitly with rationale.
 - Break work into atomic, independently verifiable steps.
 - Every plan step should be testable or directly verifiable.
 - For non-trivial plans, group work into milestones with a definition of done, validation gate, rollback boundary, and stop/replan rule.
 - Each step should name the exact file or artifact, intended outcome, prerequisite dependency if any, and direct verification method.
+- Every prerequisite named by a step must already exist in an earlier step, milestone, or explicit external prerequisite.
 - Prefer one behavior unit per step: one endpoint, one middleware, one storage method, one migration, one config surface, or one integration check.
 - Distinguish required tasks from optional cleanup.
 - Sequence foundational work before dependent consumers.
 - Compile, lint, and build are partial checks only. For externally visible behavior, add behavioral validation and key negative cases.
+- Manual or browser-driven checks cannot be the only milestone gate for an autonomous plan.
+- Every validation step must be runnable as written and include any env or startup prerequisites needed to execute it.
 - Tests are not a disconnected final phase when implementation depends on them for confidence. Plan them close to the relevant behavior.
 - Surface unknowns explicitly instead of guessing.
 - Do not include full file skeletons or long code snippets.
@@ -51,22 +59,26 @@ Planning workflow:
 2. List contradictions, ambiguous terminology, or unresolved assumptions before writing tasks.
 3. Inspect only the repo context needed to make file-accurate steps.
 4. Map touched files and artifacts with responsibilities.
-5. Decide whether the task needs a full plan pack with companion `-status.md` and `-test-plan.md` files. Default to yes for multi-milestone or autonomous work.
-6. Write the smallest plan pack that still lets another agent execute and resume safely.
-7. Self-review for spec coverage, contract discipline, step atomicity, behavioral validation, and execution order.
+5. Freeze one architecture and dependency path, or surface a blocking question if the choice cannot be made safely.
+6. Decide whether the task needs a full plan pack with companion `-status.md` and `-test-plan.md` files. Default to yes for multi-milestone or autonomous work.
+7. Write the smallest plan pack that still lets another agent execute and resume safely.
+8. Run a dependency-order audit and an inventory-completeness audit before finalizing.
+9. Self-review for spec coverage, decision freeze, contract discipline, step atomicity, inventory completeness, behavioral validation, and execution order.
 
 Required output:
 
 1. Summary
 2. Reference to approved spec or design plan
-3. Spec gaps and allowed normalizations
-4. Scope and non-goals
-5. Touched files and responsibilities
-6. Milestones with definitions of done and stop/replan rules
-7. Ordered atomic tasks
-8. Validation strategy and milestone gates
-9. Rollback boundaries and compatibility notes
-10. Known pitfalls and unknowns
+3. Frozen implementation decisions
+4. Spec gaps, open questions, and allowed normalizations
+5. Scope and non-goals
+6. Touched files and responsibilities
+7. Explicit design deviations, if any
+8. Milestones with definitions of done and stop/replan rules
+9. Ordered atomic tasks
+10. Validation strategy and milestone gates
+11. Rollback boundaries and compatibility notes
+12. Known pitfalls and unknowns
 
 Optional output:
 
@@ -81,7 +93,10 @@ Output constraints:
 - Do not estimate lines of code unless the estimate changes execution strategy.
 - Normalize names, enums, and flags before listing tasks.
 - Do not hide product or API decisions inside the normalization section.
+- Do not leave unresolved `or` branches in dependencies, libraries, or package layout.
+- Every artifact referenced later in the plan pack must appear in the inventory or in explicit external prerequisites.
 - If build or compile checks are the only proof for a behavior-heavy milestone, the plan is too weak.
+- If a milestone gate depends on manual provider interaction, browser steps, or non-runnable prose, the plan is too weak for autonomous execution.
 
 Definition of a good step:
 
@@ -90,6 +105,7 @@ Definition of a good step:
 - says what must already exist first, if anything
 - includes a direct verification method
 - covers one independently reviewable behavior unit
+- can be executed without inventing missing dependencies or hidden files
 
 Definition of a bad step:
 
@@ -97,4 +113,6 @@ Definition of a bad step:
 - includes code instead of a task
 - bundles multiple independently verifiable changes together
 - hides uncertainty behind confident wording
+- references files or commands that appeared nowhere in the inventory
+- validates with a vague or non-runnable check
 - requires the executor to invent missing behavioral tests, file placement, or rollback strategy on the fly

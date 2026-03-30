@@ -16,7 +16,7 @@ Execute an approved implementation plan or plan pack task by task using focused 
 3. Execute one task at a time.
 4. Delegate task implementation to the `implementer` subagent.
 5. Route completed work to the `code-reviewer` subagent before marking the task done.
-6. Update the status companion when present so a fresh run can resume cleanly.
+6. Update the status companion when present so a fresh run can resume cleanly. Record the completed task id, next task id, last command run, last validation result, and any blocker in append-only form.
 7. Continue until the full plan is complete.
 
 ## Rules
