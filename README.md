@@ -1,6 +1,7 @@
 # gigacraft
 
-`gigacraft` — это легковесное расширение для структурированной backend-разработки в GigaCode. Цель проекта — адаптировать `obra/superpowers` под среду разработки GigaCode и доступную в ней модель `Qwen-Coder-Next`, превратив черновик из `qwen_superpowers_agent_draft.md` в устанавливаемый набор промптов со следующими возможностями:
+`gigacraft` — это легковесное расширение для структурированной backend-разработки в GigaCode. Цель проекта — адаптировать `obra/superpowers` под среду разработки GigaCode и доступную в ней модель `Qwen-Coder-Next`.
+
 
 - `skills-first` workflow для spec, plan, implementation, review и verification
 - сфокусированные субагенты для каждого этапа workflow
@@ -16,7 +17,7 @@
 ### Подключение из локального checkout
 
 ```bash
-qwen extensions link  ..gigacraft
+qwen extensions link  %{gigacraft}
 ```
 
 ### Установка из git-репозитория
@@ -70,14 +71,19 @@ Slash-команды остаются доступными, если вам ну
 
 ```text
 .
+├── LICENSE
+├── README.md
 ├── qwen-extension.json
+├── gigacode-extension.json
 ├── QWEN.md
+├── GIGACODE.md
 ├── agents/
 ├── commands/
 ├── skills/
 ├── context/
+├── demo/
 ├── plans/
-└── docs/
+└── ...
 ```
 
 ### Основные директории
@@ -86,8 +92,8 @@ Slash-команды остаются доступными, если вам ну
 - `agents/`: сфокусированные role-prompts для субагентов `architect`, `api-designer`, `spec-reviewer`, `sre-skeptic`, `planner`, `implementer`, `code-reviewer` и `refactor`
 - `commands/`: поддерживаемые ручные точки входа для поэтапного управления
 - `context/`: переиспользуемые нейтральные backend-правила и оверлеи для Java, Go, testing и service-задач
+- `demo/`: демонстрационные и onboarding-материалы по проекту
 - `plans/`: примеры устойчивых артефактов, создаваемых workflow
-- `docs/gigacraft/`: design- и implementation-planning-документы для самого этого репозитория
 
 ## Заметки Для Maintainer'ов
 
@@ -97,16 +103,3 @@ Slash-команды остаются доступными, если вам ну
 
 Расширение по умолчанию придерживается нейтральной backend-позиции. Java- и Go-специфичные рекомендации доступны как оверлеи, а не зашиты прямо в root prompt. Это делает расширение полезным для смешанных backend-кодовых баз.
 
-## Объем V1
-
-- нативное расширение для Qwen
-- только markdown-first assets
-- без MCP-серверов
-- пока без Gemini-специфичного manifest
-
-## Идеи На Будущее
-
-- слой совместимости с Gemini
-- опциональные MCP-интеграции
-- более выраженные профильные варианты для Java-heavy или Go-heavy сценариев
-- автоматизация релизов после стабилизации prompt surface
