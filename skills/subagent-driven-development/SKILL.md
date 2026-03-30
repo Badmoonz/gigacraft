@@ -14,12 +14,12 @@ Execute an approved implementation plan task by task using focused subagents and
 1. Read the approved implementation plan.
 2. Execute one task at a time.
 3. Delegate task implementation to the `implementer` subagent.
-4. Route completed work to the `reviewer` subagent before marking the task done.
+4. Route completed work to the `code-reviewer` subagent before marking the task done.
 5. Continue until the full plan is complete.
 
 ## Rules
 
-- Do not start without an approved plan.
+- Do not start without a written implementation plan that the user has explicitly approved.
 - Do not batch unrelated tasks together.
 - Keep subagent scope narrow and bounded to the current task.
 - Re-run targeted validation after meaningful changes.

@@ -1,30 +1,6 @@
 ---
-description: Manual fallback: critically review current changes against the approved design and implementation plan.
+description: Manual fallback: invoke the gigacraft:requesting-code-review skill.
+disable-model-invocation: true
 ---
 
-Use the `reviewer` agent.
-
-Goal:
-Assess whether the current changes correctly implement the approved plan and are safe to merge when the user explicitly chooses the command path or when skills-first routing is unavailable.
-
-Process:
-
-1. Compare current changes against the approved design and plan.
-2. Review code, tests, configs, and operational implications.
-3. Focus on correctness, regressions, compatibility, and missing validation.
-4. Produce only high-signal findings.
-
-Required output:
-
-- summary verdict
-- blocker findings
-- major findings
-- minor findings
-- missing tests or validation
-- merge readiness notes
-
-Rules:
-
-- Prefer concrete, actionable findings over style feedback.
-- Treat missing tests for changed behavior as a real issue.
-- Check whether the change is over-scoped.
+Invoke the `gigacraft:requesting-code-review` skill and follow it exactly as presented to you.

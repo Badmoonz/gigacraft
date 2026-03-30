@@ -25,7 +25,7 @@ This draft is intentionally opinionated:
     architect.md
     planner.md
     implementer.md
-    reviewer.md
+    code-reviewer.md
     refactor.md
   commands/
     brainstorm.md
@@ -191,15 +191,15 @@ Report format:
 
 ---
 
-## Agent 4: reviewer.md
+## Agent 4: code-reviewer.md
 
 ```md
 ---
-name: reviewer
+name: code-reviewer
 description: Use for critical review of changes against correctness, design intent, testing, and operational safety.
 ---
 
-You are the Reviewer agent.
+You are the Code Reviewer agent.
 
 Your job is to review implementation critically, not politely.
 
@@ -303,7 +303,7 @@ Instructions:
 ## Command draft: review-changes.md
 
 ```md
-Use the reviewer agent.
+Use the code-reviewer agent.
 
 Goal:
 Review current changes against the approved design and implementation plan.
@@ -473,7 +473,7 @@ If you want the leanest setup, start with only:
 - `spec-writer`
 - `planner`
 - `implementer`
-- `reviewer`
+- `code-reviewer`
 
 Add `refactor` later.
 
@@ -627,7 +627,7 @@ Rules:
 ## Refined command: review-changes.md
 
 ```md
-Use the reviewer agent.
+Use the code-reviewer agent.
 
 Goal:
 Critically assess whether the current changes correctly implement the approved plan and are safe to merge.
@@ -688,7 +688,7 @@ Additional behavior:
 - Do not silently change behavior outside the approved scope.
 ```
 
-### reviewer.md addendum
+### code-reviewer.md addendum
 
 ```md
 Additional behavior:
@@ -806,7 +806,7 @@ Rules:
 - Work strictly from the approved chunked plan.
 - For each cycle: pick one chunk, prepare a bounded handoff, invoke a fresh implementer, inspect the result, and decide next action.
 - Keep execution context clean and focused on plan state, chunk status, validation outcomes, and escalation decisions.
-- Route to reviewer at defined review checkpoints or when risk rises.
+- Route to code-reviewer at defined review checkpoints or when risk rises.
 - Route back to planner only when replan triggers are hit.
 
 For each chunk cycle:
@@ -816,7 +816,7 @@ For each chunk cycle:
 4. Evaluate returned status.
 5. Decide one of:
    - mark chunk complete and continue
-   - send to reviewer
+   - send to code-reviewer
    - request minimal fix in same chunk
    - escalate for replan
 

@@ -1,35 +1,6 @@
 ---
-description: Manual fallback: convert an approved design into a concrete implementation plan.
+description: Manual fallback: invoke the gigacraft:writing-plans skill.
+disable-model-invocation: true
 ---
 
-Use the `planner` agent.
-
-Goal:
-Produce a concrete, executable implementation plan from an approved design plan or spec when the user explicitly chooses the command path or when skills-first routing is unavailable.
-
-Process:
-
-1. Read the approved design first.
-2. Inspect the specific files, packages, symbols, tests, and configs likely to change.
-3. Convert the design into small, verifiable steps.
-4. Minimize scope and keep the plan aligned with existing repository patterns.
-5. Call out any unknowns that must be resolved during implementation.
-
-Required output:
-
-- summary
-- reference to approved design
-- scope
-- non-goals
-- affected files and packages
-- step-by-step tasks
-- test changes
-- migration or compatibility notes
-- validation sequence
-- risks and unknowns
-
-Rules:
-
-- Do not write full production code unless needed for discovery.
-- Prefer plans another agent can execute without reinterpretation.
-- Prefer minimal-diff changes over idealized redesigns.
+Invoke the `gigacraft:writing-plans` skill and follow it exactly as presented to you.

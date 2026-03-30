@@ -20,6 +20,7 @@ Execute an approved implementation plan inline while preserving narrow scope and
 ## Rules
 
 - Do not broaden scope beyond the approved plan.
+- Do not start execution until the written implementation plan has been explicitly approved by the user.
 - Reuse existing repository patterns aggressively.
 - Treat missing validation as incomplete work.
 - Use this skill only when inline execution is preferable to `subagent-driven-development`.

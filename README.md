@@ -55,17 +55,16 @@ This keeps design, planning, implementation, review, and verification clearly se
 
 ## Manual Fallback Commands
 
-Slash commands remain supported when you want explicit control or when automatic stage routing is not enough:
+Slash commands remain supported when you want explicit control or when automatic stage routing is not enough. They are thin redirects to the corresponding `gigacraft:*` skills rather than separate workflow definitions:
 
 1. `/write-spec`
 2. `/write-plan`
-3. `/implement-plan`
-4. `/review-changes`
+3. `/write-plan-v2` (compatibility alias to `/write-plan` during planner migration)
+4. `/implement-plan`
+5. `/review-changes`
 
-Advanced/manual commands remain available for the chunked and scoped-refactor paths:
+Additional manual command:
 
-- `/write-chunked-plan`
-- `/implement-chunked-plan`
 - `/refactor-scope`
 
 ## Repository Layout
@@ -85,11 +84,11 @@ Advanced/manual commands remain available for the chunked and scoped-refactor pa
 ### Key directories
 
 - `skills/`: primary workflow policy for design, planning, execution, review, and verification
-- `agents/`: focused subagent role prompts for architect, planner, implementer, reviewer, refactor, and orchestrator
+- `agents/`: focused subagent role prompts for architect, api-designer, spec-reviewer, sre-skeptic, planner, implementer, code-reviewer, and refactor
 - `commands/`: supported manual fallback entrypoints for stage-by-stage control
 - `context/`: reusable neutral backend rules plus Java, Go, testing, and service overlays
 - `plans/`: example durable artifacts produced by the workflow
-- `docs/superpowers/`: design and implementation planning documents for this repo itself
+- `docs/gigacraft/`: design and implementation planning documents for this repo itself
 
 ## Maintainer Notes
 
