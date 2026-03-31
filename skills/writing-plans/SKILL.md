@@ -62,15 +62,25 @@ Main plan:
 
 Status companion for non-trivial plans:
 
-- Current phase
-- Milestone status table
-- Current task
-- Next task
-- Append-only execution log
-- Stop/replan triggers
-- Decisions and assumptions
-- Last completed command and validation
-- Blockers
+Use the exact section headings below for the status companion so execution skills can resume deterministically:
+
+## Current Phase
+
+## Milestone Status
+
+## Current Task
+
+## Next Task
+
+## Stop/Replan Triggers
+
+## Decisions and Assumptions
+
+## Last Completed Command and Validation
+
+## Blockers
+
+## Execution Log
 
 Test plan companion for non-trivial plans:
 
@@ -97,6 +107,9 @@ Optional sections:
 - Exact file or artifact paths always.
 - Use `docs/gigacraft/plans/` as the default plan location. Do not improvise alternate default paths such as `docs/plans/`.
 - Use the same base name for companion files when they exist: `...-status.md` and `...-test-plan.md`.
+- For `...-status.md`, use the exact heading names from `Default Output Shape`. Do not rename them or replace them with synonyms.
+- In `## Execution Log`, append entries only. Each entry should record the completed task id, next task id, last command run, last validation result, and any blocker.
+- In `## Current Task` and `## Next Task`, prefer exact task ids from the main plan so execution skills can resume without guesswork.
 - Every task must be actionable without reinterpretation.
 - Each task should name the exact file or artifact, the intended outcome, any prerequisite dependency, and a direct verification method.
 - Every prerequisite named by a task must be satisfied by an earlier task, milestone, or explicit external prerequisite.
