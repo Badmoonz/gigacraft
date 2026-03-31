@@ -7,64 +7,37 @@
 Релиз `v0.2.0` концентрируется на надежности execution-stage в `gigacraft`.
 После `v0.1.0` расширение стало заметно устойчивее в реальной работе с планами: статус выполнения теперь ведется детерминированно, milestone boundaries получили явные commit checkpoints, `Serena` / `code-index` переоцениваются в момент старта execution, `brainstorming` перестал преждевременно уходить в review, интерактивные блоки вопросов получили жесткий output contract, а `subagent-driven-development` теперь требует реального запуска сабагентов вместо имитации делегации.
 
-### Scope of Change
-
-- 6 целевых workflow-улучшений после `v0.1.0`
-- 21 измененный файл
-- 351 добавлений и 37 удалений
-- 6 smoke-check скриптов для контроля prompt contracts
-
 ### Highlights
 
-#### 1. Resumable execution стал надежнее
+#### 1. План теперь легче продолжать после паузы или нового запуска
 
-- `executing-plans` и `subagent-driven-development` теперь автоматически подхватывают sibling `-status.md` и используют его как source of truth.
-- После каждого task / validation шага status companion должен обновляться немедленно, а не best-effort.
+- Если выполнение прервалось, workflow заметно лучше понимает, где именно остановился, что уже было сделано и какой шаг должен идти следующим.
+- Это снижает риск повторного выполнения уже закрытых задач, потери контекста между сессиями и хаотичного “перечитывания всего чата с нуля”.
 
-#### 2. Появились milestone commit checkpoints
+#### 2. Execution стал более безопасным на длинных задачах
 
-- `writing-plans` теперь требует явных commit checkpoints на уровне milestone.
-- Execution-stage создает non-interactive commit только после прохождения milestone gate и только при валидном diff без unrelated changes.
+- На границах milestones workflow теперь ожидает осмысленные commit checkpoints вместо большого неструктурированного diff в конце.
+- Для пользователя это означает более предсказуемый прогресс, более удобный rollback и более аккуратные промежуточные результаты по мере движения по плану.
 
-#### 3. Navigation helpers проверяются в момент старта execution
+#### 3. Поиск по репозиторию стал адаптивнее к реальной среде
 
-- Planning может записать readiness `Serena` / `code-index` только как advisory context.
-- Реальная проверка helper readiness теперь происходит при активации `executing-plans` и `subagent-driven-development`, с явным fallback на `rg`.
+- Workflow больше не полагается вслепую на то, что `Serena` или `code-index` “должны быть доступны”.
+- При старте execution проверяется реальная готовность helper’ов, а если они недоступны, workflow явно переключается на локальный fallback вместо тихого деградирования поведения.
 
-#### 4. Brainstorming получил строгий review gate
+#### 4. Brainstorming меньше уходит вперед раньше времени
 
-- `spec-reviewer`, `api-designer` и `sre-skeptic` больше не должны запускаться до появления записанного spec-файла.
-- Dispatch templates и reviewer prompts теперь дополнительно отказываются ревьюить “идею в чате” вместо written spec.
+- Review stage теперь жёстче привязан к уже записанному spec, а не к “идее в обсуждении”.
+- Для пользователя это означает более логичный порядок работы: сначала договорились и зафиксировали spec, потом уже запускаются reviewer’ы, а не наоборот.
 
-#### 5. Интерактивные блоки вопросов стали стабильнее
+#### 5. Интерактивные вопросы в brainstorming должны срабатывать стабильнее
 
-- Для `AskUserQuestion` и `ReviewOptions` добавлен прямой запрет на fenced-code output и любой текст перед raw block.
-- Это уменьшает риск того, что UI покажет plain text вместо интерактивного элемента.
+- `AskUserQuestion` и `ReviewOptions` теперь жёстче ограничены по формату вывода.
+- Это уменьшает риск того, что вместо интерактивного элемента пользователь увидит просто текстовый блок или полусломанный UI-output.
 
-#### 6. Subagent execution теперь требует реальной делегации
+#### 6. Делегированное выполнение стало честнее и прозрачнее
 
-- `subagent-driven-development` больше не должен “говорить, что делегирует”, не запуская сабагентов.
-- Добавлены bounded dispatch templates для `implementer` и `code-reviewer`, а при отсутствии subagent support workflow обязан честно предложить fallback на `executing-plans`.
-
-### Verification
-
-Пакет изменений проверен встроенными smoke-check скриптами:
-
-- `scripts/check-brainstorming-interactive-format.sh`
-- `scripts/check-brainstorming-review-gate.sh`
-- `scripts/check-code-index-readiness-planning.sh`
-- `scripts/check-execution-skill-status.sh`
-- `scripts/check-milestone-commit-checkpoints.sh`
-- `scripts/check-subagent-dispatch-contract.sh`
-
-### Included Commits
-
-- `a94f53e` `fix: enforce status companion updates during execution`
-- `c6f11e4` `fix: gate brainstorming review on written spec`
-- `e54c9bc` `feat: add milestone commit checkpoints to plan execution`
-- `ade2081` `fix: re-check code-index readiness on execution activation`
-- `dbd279e` `fix: require raw interactive blocks in brainstorming`
-- `4bc6cb6` `fix: require real subagent dispatch in execution`
+- Если выбран `subagent-driven-development`, workflow теперь должен либо действительно запустить сабагентов, либо честно остановиться и предложить fallback.
+- Для пользователя это убирает ложное ощущение, что “делегация пошла”, когда на самом деле всё продолжает делаться одним и тем же агентом inline.
 
 ## [v0.1.0]
 
