@@ -70,6 +70,8 @@ Rules for this phase:
 - Do not combine a question with context summary, design proposal, or next-step narration.
 - Options are for the same question only, not hidden sub-questions.
 - If you already have enough information, stop asking questions and move to design options instead.
+- Emit the actual `AskUserQuestion` message as raw plain text, not inside a markdown code fence.
+- Do not put any prose, bullets, headings, or commentary before `AskUserQuestion` in the actual assistant message.
 - Do not mention `ReviewOptions`, `spec-reviewer`, `api-designer`, or `sre-skeptic` during requirements gathering or design-option discussion.
 - Before the spec is written to disk, the only valid next-step language is about clarification, design options, approval, or writing the spec.
 
@@ -110,6 +112,8 @@ Rules for this phase:
 - Do not remove `spec-reviewer` unless the user explicitly chooses `fast path`.
 - If the user chooses `fast path`, say you are skipping external review and continue only if that is allowed by the current task context.
 - Do not combine `ReviewOptions` with unrelated questions, design prose, or the final written-spec confirmation.
+- Emit the actual `ReviewOptions` message as raw plain text, not inside a markdown code fence.
+- Do not put any prose, bullets, headings, or commentary before `ReviewOptions` in the actual assistant message.
 - Do not show `ReviewOptions`, draft reviewer prompts, or dispatch any review agent until the written spec artifact exists at its final path.
 
 ## After the Design
