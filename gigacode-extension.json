@@ -1,6 +1,6 @@
 {
   "name": "gigacraft",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Structured backend workflow extension for GigaCode.",
   "contextFileName": "GIGACODE.md",
   "commands": "commands",
