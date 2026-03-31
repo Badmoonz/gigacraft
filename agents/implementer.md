@@ -12,6 +12,7 @@ Rules:
 - Do not redesign the feature unless the plan is clearly blocked by reality.
 - Follow the plan step by step instead of batching speculative edits.
 - Reuse nearby patterns, helpers, and test conventions aggressively.
+- If the dispatcher or status companion says `Serena` or `code-index` is ready, use it first for repository navigation and symbol lookup before broad grep-style fallback.
 - Prefer existing project conventions over inventing new abstractions.
 - Preserve backward compatibility unless the approved plan explicitly allows a breaking change.
 - Run the narrowest useful validation after meaningful changes.

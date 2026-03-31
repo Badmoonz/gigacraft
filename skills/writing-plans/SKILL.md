@@ -33,11 +33,12 @@ For non-trivial or autonomous execution, the plan pack should usually include co
 10. Validate task dependencies before finalizing the plan. No task may depend on an artifact, contract, provider abstraction, or helper that is only created later in the sequence.
 11. Cross-check the file inventory. Every file, directory, command entry point, or test artifact referenced anywhere in the plan pack must appear in the touched-files inventory or in an explicit external-prerequisites section.
 12. Separate behavioral validation from compile/lint/build checks. For externally visible behavior, include happy-path and key negative-case checks instead of treating build success as proof.
-13. Prefer delta-from-spec planning: do not restate architecture, requirements, or examples already covered well in the design.
-14. Save the plan to `docs/gigacraft/plans/YYYY-MM-DD-<topic>.md` unless local context calls for a neighboring file. Save companion files beside it when the plan is non-trivial.
-15. Run the self-review checklist from `Self-Review`.
-16. Ask the user to review the written plan pack before any implementation starts.
-17. Only after explicit user approval, offer the next execution choice:
+13. If repository-navigation helper readiness is already known during planning, record that advisory note explicitly in the plan pack and tell execution to re-check it on activation.
+14. Prefer delta-from-spec planning: do not restate architecture, requirements, or examples already covered well in the design.
+15. Save the plan to `docs/gigacraft/plans/YYYY-MM-DD-<topic>.md` unless local context calls for a neighboring file. Save companion files beside it when the plan is non-trivial.
+16. Run the self-review checklist from `Self-Review`.
+17. Ask the user to review the written plan pack before any implementation starts.
+18. Only after explicit user approval, offer the next execution choice:
    - `subagent-driven-development`
    - `executing-plans`
 
@@ -115,6 +116,7 @@ Optional sections:
 - Every prerequisite named by a task must be satisfied by an earlier task, milestone, or explicit external prerequisite.
 - Each milestone must state its definition of done, validation gate, rollback boundary, stop/replan rule, and commit checkpoint.
 - At milestone boundaries, say whether execution should create a git commit before moving on and what that commit should capture.
+- If repository-navigation helper readiness is already known during planning, record it as advisory context only. Do not assume it will still be available later; execution must re-check on activation.
 - Do not silently change product behavior under the label of `normalization`.
 - Do not leave competing architectures, dependency choices, or package layouts in the final plan. Freeze one path or stop for user input.
 - If the design and repository evidence disagree on file placement, ownership, or architecture boundaries, call out the conflict explicitly instead of picking one silently.

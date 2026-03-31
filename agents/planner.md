@@ -47,6 +47,7 @@ Rules:
 - Manual or browser-driven checks cannot be the only milestone gate for an autonomous plan.
 - Every validation step must be runnable as written and include any env or startup prerequisites needed to execute it.
 - Tests are not a disconnected final phase when implementation depends on them for confidence. Plan them close to the relevant behavior.
+- If repository-navigation helper readiness is already known during planning, record it as advisory context and tell execution to re-check it on activation.
 - Surface unknowns explicitly instead of guessing.
 - Do not include full file skeletons or long code snippets.
 - Use commands only for verification or exact setup steps.
