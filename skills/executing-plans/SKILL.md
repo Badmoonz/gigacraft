@@ -19,8 +19,9 @@ Execute an approved implementation plan or plan pack inline while preserving nar
 6. If the approved plan or status companion names a current task, resume there. Otherwise start from the first unfinished task in the main plan.
 7. Work through the plan in order and keep each implementation batch small and reviewable.
 8. Validate after meaningful changes, using the test plan when present.
-9. After each completed task or validation attempt, update the status companion immediately before moving on.
-10. Hand off to review before declaring completion.
+9. When a milestone or phase is complete and its validation gate passes, create one non-interactive git commit before starting the next milestone.
+10. After each completed task or validation attempt, update the status companion immediately before moving on.
+11. Hand off to review before declaring completion.
 
 ## Rules
 
@@ -32,3 +33,8 @@ Execute an approved implementation plan or plan pack inline while preserving nar
 - Keep the status companion headings stable. Update `## Current Phase`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.
 - Record the completed task id, next task id, last command run, last validation result, and any blocker in append-only form under `## Execution Log`. Do not rewrite or collapse earlier log entries.
 - If the main plan references a status companion but the file is missing, create `<plan base>-status.md` with the canonical headings from `writing-plans` before starting implementation.
+- When a milestone or phase is complete and its validation gate passes, create one non-interactive git commit before starting the next milestone.
+- If the worktree contains unrelated changes, missing validation, or no meaningful diff for the completed milestone, stop and surface that instead of forcing a commit.
+- Stage only the files that belong to the completed milestone and use a commit message tied to the milestone id or title.
+- Do not create empty commits.
+- If a milestone commit is created, record the commit sha and message in `## Execution Log`.

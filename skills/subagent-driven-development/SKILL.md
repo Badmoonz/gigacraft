@@ -20,8 +20,9 @@ Execute an approved implementation plan or plan pack task by task using focused 
 7. Execute one task at a time.
 8. Delegate task implementation to the `implementer` subagent.
 9. Route completed work to the `code-reviewer` subagent before marking the task done.
-10. After each completed task, review pass, or validation attempt, update the status companion immediately before dispatching the next task.
-11. Continue until the full plan is complete.
+10. When a milestone or phase is complete, reviewed, and validated, create one non-interactive git commit before dispatching work for the next milestone.
+11. After each completed task, review pass, or validation attempt, update the status companion immediately before dispatching the next task.
+12. Continue until the full plan is complete.
 
 ## Rules
 
@@ -34,3 +35,8 @@ Execute an approved implementation plan or plan pack task by task using focused 
 - Keep the status companion headings stable. Update `## Current Phase`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.
 - Record the completed task id, next task id, last command run, last validation result, and any blocker in append-only form under `## Execution Log`. Do not rewrite or collapse earlier log entries.
 - If the main plan references a status companion but the file is missing, create `<plan base>-status.md` with the canonical headings from `writing-plans` before dispatching the first implementation task.
+- When a milestone or phase is complete, reviewed, and validated, create one non-interactive git commit before dispatching work for the next milestone.
+- If the worktree contains unrelated changes, missing validation, or no meaningful diff for the completed milestone, stop and surface that instead of forcing a commit.
+- Stage only the files that belong to the completed milestone and use a commit message tied to the milestone id or title.
+- Do not create empty commits.
+- If a milestone commit is created, record the commit sha and message in `## Execution Log`.

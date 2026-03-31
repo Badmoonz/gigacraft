@@ -29,7 +29,7 @@ For non-trivial or autonomous execution, the plan pack should usually include co
    - test plan companion: `docs/gigacraft/plans/YYYY-MM-DD-<topic>-test-plan.md`
 7. Freeze one architecture and dependency path for execution. Resolve `A or B` choices into a single selected option, or surface them as blocking questions before finalizing the plan.
 8. Break the work into atomic, resumable tasks in strict execution order. Prefer one independently verifiable behavior unit per task: one endpoint, one middleware, one storage method, one migration, one config surface, or one integration check.
-9. Group tasks into milestones. For each milestone define a goal, definition of done, validation gate, rollback boundary, and stop/replan rule.
+9. Group tasks into milestones. For each milestone define a goal, definition of done, validation gate, rollback boundary, stop/replan rule, and commit checkpoint.
 10. Validate task dependencies before finalizing the plan. No task may depend on an artifact, contract, provider abstraction, or helper that is only created later in the sequence.
 11. Cross-check the file inventory. Every file, directory, command entry point, or test artifact referenced anywhere in the plan pack must appear in the touched-files inventory or in an explicit external-prerequisites section.
 12. Separate behavioral validation from compile/lint/build checks. For externally visible behavior, include happy-path and key negative-case checks instead of treating build success as proof.
@@ -54,7 +54,7 @@ Main plan:
 5. Scope and non-goals
 6. Touched files and responsibilities
 7. Explicit design deviations, if any
-8. Milestones with definitions of done
+8. Milestones with definitions of done and commit checkpoints
 9. Ordered atomic tasks
 10. Validation strategy and milestone gates
 11. Rollback boundaries and compatibility notes
@@ -108,12 +108,13 @@ Optional sections:
 - Use `docs/gigacraft/plans/` as the default plan location. Do not improvise alternate default paths such as `docs/plans/`.
 - Use the same base name for companion files when they exist: `...-status.md` and `...-test-plan.md`.
 - For `...-status.md`, use the exact heading names from `Default Output Shape`. Do not rename them or replace them with synonyms.
-- In `## Execution Log`, append entries only. Each entry should record the completed task id, next task id, last command run, last validation result, and any blocker.
+- In `## Execution Log`, append entries only. Each entry should record the completed task id, next task id, last command run, last validation result, any blocker, and any commit sha or message created at a milestone checkpoint.
 - In `## Current Task` and `## Next Task`, prefer exact task ids from the main plan so execution skills can resume without guesswork.
 - Every task must be actionable without reinterpretation.
 - Each task should name the exact file or artifact, the intended outcome, any prerequisite dependency, and a direct verification method.
 - Every prerequisite named by a task must be satisfied by an earlier task, milestone, or explicit external prerequisite.
-- Each milestone must state its definition of done, validation gate, rollback boundary, and stop/replan rule.
+- Each milestone must state its definition of done, validation gate, rollback boundary, stop/replan rule, and commit checkpoint.
+- At milestone boundaries, say whether execution should create a git commit before moving on and what that commit should capture.
 - Do not silently change product behavior under the label of `normalization`.
 - Do not leave competing architectures, dependency choices, or package layouts in the final plan. Freeze one path or stop for user input.
 - If the design and repository evidence disagree on file placement, ownership, or architecture boundaries, call out the conflict explicitly instead of picking one silently.
