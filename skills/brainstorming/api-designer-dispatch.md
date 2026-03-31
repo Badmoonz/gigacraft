@@ -6,6 +6,7 @@ Purpose: review the API or contract surface of the spec before implementation pl
 Use this before the final `spec-reviewer` pass when the spec changes an API or integration contract.
 
 Dispatch after the spec is written to `docs/gigacraft/specs/` or another agreed design-doc location.
+Never use this template before the spec exists on disk.
 
 This file is a prompt template, not the artifact to review.
 Before dispatching, copy the template text into the agent request and replace every placeholder with concrete values.

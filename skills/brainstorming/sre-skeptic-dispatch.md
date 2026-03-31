@@ -6,6 +6,7 @@ Purpose: run a compact pre-mortem on the spec before implementation planning sta
 Use this before the final `spec-reviewer` pass when the spec has meaningful operational risk.
 
 Dispatch after the spec is written to `docs/gigacraft/specs/` or another agreed design-doc location.
+Never use this template before the spec exists on disk.
 
 This file is a prompt template, not the artifact to review.
 Before dispatching, copy the template text into the agent request and replace every placeholder with concrete values.

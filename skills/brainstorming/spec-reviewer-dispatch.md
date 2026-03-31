@@ -6,6 +6,7 @@ Purpose: verify that the spec is complete, consistent, and concrete enough for i
 In the `brainstorming` workflow this is the default external review gate for every non-trivial written spec.
 
 Dispatch after the spec is written to `docs/gigacraft/specs/` or another agreed design-doc location.
+Never use this template before the spec exists on disk.
 
 This file is a prompt template, not the artifact to review.
 Before dispatching, copy the template text into the agent request and replace every placeholder with concrete values.

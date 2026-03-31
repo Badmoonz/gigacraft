@@ -20,8 +20,8 @@ Turn a rough request into an approved design that fits the current repository be
 7. Present the design in reviewable sections scaled to the task size.
 8. Get explicit user approval before writing the spec.
 9. Save the approved design to `docs/gigacraft/specs/YYYY-MM-DD-<topic>-design.md`.
-10. Run self-review on the written spec.
-11. Show the user a `ReviewOptions` checklist with the recommended external review run and wait for their response.
+10. Confirm the written spec artifact now exists at that final path, then run self-review on the written spec.
+11. Only after step 9 is complete, show the user a `ReviewOptions` checklist with the recommended external review run and wait for their response.
 12. Run the external review gate on the written spec using the confirmed review set:
    - always include `spec-reviewer` unless the user explicitly chooses a fast path
    - dispatch `api-designer` before `spec-reviewer` when API or contract surfaces change
@@ -70,6 +70,8 @@ Rules for this phase:
 - Do not combine a question with context summary, design proposal, or next-step narration.
 - Options are for the same question only, not hidden sub-questions.
 - If you already have enough information, stop asking questions and move to design options instead.
+- Do not mention `ReviewOptions`, `spec-reviewer`, `api-designer`, or `sre-skeptic` during requirements gathering or design-option discussion.
+- Before the spec is written to disk, the only valid next-step language is about clarification, design options, approval, or writing the spec.
 
 ## Review Options Format
 
@@ -100,6 +102,7 @@ Adjust the checked boxes to match the spec:
 
 Rules for this phase:
 
+- Enter this phase only after the spec has been saved to its final path and that file now exists on disk.
 - Show this once per written spec before external review starts.
 - Wait for the user's reply before dispatching any external review agent.
 - Treat `approve` as approval of the currently checked review set.
@@ -107,6 +110,7 @@ Rules for this phase:
 - Do not remove `spec-reviewer` unless the user explicitly chooses `fast path`.
 - If the user chooses `fast path`, say you are skipping external review and continue only if that is allowed by the current task context.
 - Do not combine `ReviewOptions` with unrelated questions, design prose, or the final written-spec confirmation.
+- Do not show `ReviewOptions`, draft reviewer prompts, or dispatch any review agent until the written spec artifact exists at its final path.
 
 ## After the Design
 
@@ -131,6 +135,7 @@ Do this after self-review for every non-trivial written spec:
 - For small or obviously local specs, skip specialized reviewers and run only `spec-reviewer`.
 - Only skip all external review if the user explicitly asks for a fast path or the spec is a tiny local note and you clearly say you are taking that fast path.
 - Before running external review, present the `ReviewOptions` checklist and wait for the user's response.
+- If the spec is still only in chat or approval is still pending, you are not in the external-review phase yet.
 
 ### Focused Subagent Review
 
@@ -169,6 +174,7 @@ Apply the strongest findings inline, then ask the user to review the written spe
 - Before external review, enforce the `ReviewOptions` format strictly.
 - Prefer checklist-style review over open-ended critique when reasoning is limited.
 - After writing the spec, dispatch `spec-reviewer` unless you are taking an explicit fast path.
+- Do not mention or invoke any reviewer before the spec has been written to disk at its final path.
 - Do not treat self-review as a substitute for `spec-reviewer`.
 - Do not spawn specialized review agents for trivial or obviously local changes.
 - Prefer artifact-based review prompts because Qwen works better with narrow, explicit context than with broad conversation replay.

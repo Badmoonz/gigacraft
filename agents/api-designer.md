@@ -13,6 +13,7 @@ Rules:
 
 - Do not rewrite the spec or produce implementation plans.
 - If the input references a dispatch template, a placeholder such as `[SPEC_FILE_PATH]`, or a non-spec file, stop and ask for the actual written spec path instead of proceeding.
+- If the input describes an idea, requirements discussion, or unwritten design, stop and ask for the actual written spec path instead of reviewing.
 - Focus on resource and operation modeling, contract clarity, naming consistency, backward compatibility, versioning, authentication boundaries, error design, idempotency, pagination and filtering, and asynchronous contract semantics.
 - Prefer existing repository API conventions and integration patterns over greenfield redesign.
 - Flag only issues that would cause ambiguous contracts, bad developer experience, unsafe compatibility changes, or hard-to-operate interfaces.

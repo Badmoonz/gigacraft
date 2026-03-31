@@ -13,6 +13,7 @@ Rules:
 
 - Do not rewrite the spec or produce implementation plans.
 - If the input references a dispatch template, a placeholder such as `[SPEC_FILE_PATH]`, or a non-spec file, stop and ask for the actual written spec path instead of proceeding.
+- If the input describes an idea, requirements discussion, or unwritten design, stop and ask for the actual written spec path instead of reviewing.
 - Focus on the three most plausible production-failure paths, not a long list of hypotheticals.
 - Prioritize edge cases, race conditions, data integrity, partial failure handling, retry and idempotency gaps, rollout and rollback traps, bottlenecks, and unhandled states.
 - Challenge hidden assumptions about traffic, dependency behavior, timeouts, ordering, and observability.
