@@ -1,5 +1,6 @@
 # Testing Standards
 
+- Prefer test-first changes: write the narrowest useful failing test before production code, then make it pass with the smallest implementation.
 - Prefer unit tests for local behavior and integration tests for contract boundaries.
 - Add regression tests for real bugs when practical.
 - Tests should prove behavior rather than mirror implementation details.

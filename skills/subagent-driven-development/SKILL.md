@@ -19,11 +19,12 @@ Execute an approved implementation plan or plan pack task by task using focused 
 6. Before dispatching navigation-heavy work, check whether `Serena` or `code-index` is ready in the current environment.
 7. Start from the current unfinished milestone or task. If a status companion exists, treat it as the current execution state.
 8. Execute one task at a time.
-9. Dispatch the current task to the `implementer` subagent immediately.
-10. Route completed work to the `code-reviewer` subagent before marking the task done.
-11. When a milestone or phase is complete, reviewed, and validated, create one non-interactive git commit before dispatching work for the next milestone.
-12. After each completed task, review pass, or validation attempt, update the status companion immediately before dispatching the next task.
-13. Continue until the full plan is complete.
+9. For behavior-changing tasks, dispatch and review explicit RED/GREEN progress: failing test first, then minimal code, then passing test.
+10. Dispatch the current task to the `implementer` subagent immediately.
+11. Route completed work to the `code-reviewer` subagent before marking the task done.
+12. When a milestone or phase is complete, reviewed, and validated, create one non-interactive git commit before dispatching work for the next milestone.
+13. After each completed task, review pass, or validation attempt, update the status companion immediately before dispatching the next task.
+14. Continue until the full plan is complete.
 
 ## Rules
 
@@ -31,6 +32,9 @@ Execute an approved implementation plan or plan pack task by task using focused 
 - Keep subagent scope narrow and bounded to the current task.
 - Re-run targeted validation after meaningful changes.
 - Use the test-plan companion when present to choose milestone and behavior checks, not just compile checks.
+- For behavior-changing tasks, require the implementer handoff to follow `gigacraft:test-driven-development`.
+- For behavior-changing tasks, dispatch and review explicit RED/GREEN progress: failing test first, then minimal code, then passing test.
+- When tests or mocks change, require the implementer handoff to consult `skills/test-driven-development/testing-anti-patterns.md`.
 - Escalate when the plan is blocked by reality instead of silently redesigning it.
 - Do not merely say you are delegating. The skill is not active until an `implementer` subagent has actually been dispatched for the current task.
 - If this environment cannot dispatch subagents, stop, tell the user that `subagent-driven-development` cannot run here, and explicitly offer `executing-plans` as the fallback.

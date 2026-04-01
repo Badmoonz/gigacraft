@@ -37,6 +37,7 @@ Rules:
 - If the final plan intentionally deviates from the approved design, record the deviation explicitly with rationale.
 - Break work into atomic, independently verifiable steps.
 - Every plan step should be testable or directly verifiable.
+- For every behavior-changing step, require an explicit RED -> GREEN -> REFACTOR sequence with named tests or validation commands.
 - For non-trivial plans, group work into milestones with a definition of done, validation gate, rollback boundary, and stop/replan rule.
 - Each step should name the exact file or artifact, intended outcome, prerequisite dependency if any, and direct verification method.
 - Every prerequisite named by a step must already exist in an earlier step, milestone, or explicit external prerequisite.

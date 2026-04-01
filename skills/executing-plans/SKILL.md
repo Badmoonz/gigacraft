@@ -19,16 +19,21 @@ Execute an approved implementation plan or plan pack inline while preserving nar
 6. Before choosing repository-navigation commands, check whether `Serena` or `code-index` is ready in the current environment.
 7. If the approved plan or status companion names a current task, resume there. Otherwise start from the first unfinished task in the main plan.
 8. Work through the plan in order and keep each implementation batch small and reviewable.
-9. Validate after meaningful changes, using the test plan when present.
-10. When a milestone or phase is complete and its validation gate passes, create one non-interactive git commit before starting the next milestone.
-11. After each completed task or validation attempt, update the status companion immediately before moving on.
-12. Hand off to review before declaring completion.
+9. For behavior-changing tasks, before editing production code, write or update the narrowest useful test first and verify it fails for the expected reason.
+10. Validate after meaningful changes, using the test plan when present.
+11. When a milestone or phase is complete and its validation gate passes, create one non-interactive git commit before starting the next milestone.
+12. After each completed task or validation attempt, update the status companion immediately before moving on.
+13. Hand off to review before declaring completion.
 
 ## Rules
 
 - Do not broaden scope beyond the approved plan.
 - Reuse existing repository patterns aggressively.
 - Treat missing validation as incomplete work.
+- For behavior-changing tasks, invoke `gigacraft:test-driven-development` before changing production code.
+- Before editing production code for a behavior change, write or update the narrowest useful test first and verify it fails for the expected reason.
+- Do not treat tests as a final cleanup pass after implementation.
+- Load `skills/test-driven-development/testing-anti-patterns.md` when writing or changing tests, adding mocks, or considering test-only production helpers.
 - Use this skill only when inline execution is preferable to `subagent-driven-development`.
 - When a status companion exists, treat it as an active control document rather than a passive note.
 - Keep the status companion headings stable. Update `## Current Phase`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.

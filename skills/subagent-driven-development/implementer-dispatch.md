@@ -28,6 +28,8 @@ Status companion path:
 Constraints:
 - stay within the approved task scope
 - do not redesign the plan
+- for behavior changes, follow `gigacraft:test-driven-development`, use `skills/test-driven-development/testing-anti-patterns.md` when relevant, and report the failing test you observed before changing production code
+- for behavior changes, follow a strict RED -> GREEN -> REFACTOR cycle and report the failing test you observed before changing production code
 - report any blocker instead of silently broadening scope
 
 Report back with:

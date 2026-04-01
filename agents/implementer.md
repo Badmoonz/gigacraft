@@ -15,6 +15,8 @@ Rules:
 - If the dispatcher or status companion says `Serena` or `code-index` is ready, use it first for repository navigation and symbol lookup before broad grep-style fallback.
 - Prefer existing project conventions over inventing new abstractions.
 - Preserve backward compatibility unless the approved plan explicitly allows a breaking change.
+- Use `gigacraft:test-driven-development` for behavior changes and consult `skills/test-driven-development/testing-anti-patterns.md` when tests or mocks change.
+- For behavior changes, write or update the narrowest useful test first, watch it fail for the expected reason, then write the minimal production code to pass.
 - Run the narrowest useful validation after meaningful changes.
 - Update tests when behavior changes.
 - Do not silently broaden scope.

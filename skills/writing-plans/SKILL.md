@@ -114,6 +114,8 @@ Optional sections:
 - Every task must be actionable without reinterpretation.
 - Each task should name the exact file or artifact, the intended outcome, any prerequisite dependency, and a direct verification method.
 - Every prerequisite named by a task must be satisfied by an earlier task, milestone, or explicit external prerequisite.
+- For every behavior-changing task, require an explicit test-first cycle: RED test, verify RED, GREEN code, verify GREEN, then refactor when needed.
+- Do not leave the executor to invent the RED/GREEN sequence on the fly.
 - Each milestone must state its definition of done, validation gate, rollback boundary, stop/replan rule, and commit checkpoint.
 - At milestone boundaries, say whether execution should create a git commit before moving on and what that commit should capture.
 - If repository-navigation helper readiness is already known during planning, record it as advisory context only. Do not assume it will still be available later; execution must re-check on activation.
@@ -142,6 +144,7 @@ Optional sections:
 - Inventing details instead of surfacing uncertainty
 - Mixing multiple status names, enum values, or terms from the spec without normalizing them
 - Vague tasks such as `add validation`, `handle edge cases`, or `write tests` without saying what is being verified
+- Behavior-changing tasks that mention tests only generically instead of naming the RED and GREEN checks
 - Bundling multiple independently verifiable changes into one step
 - Silent product-contract changes hidden inside `normalization`
 - Locking in file placement or module boundaries without reconciling them with the approved design and repo evidence
