@@ -38,6 +38,9 @@ Rules:
 - Break work into atomic, independently verifiable steps.
 - Every plan step should be testable or directly verifiable.
 - For every behavior-changing step, require an explicit RED -> GREEN -> REFACTOR sequence with named tests or validation commands.
+- For plans that span multiple milestones or are intended for autonomous execution, do not emit a bare numbered checklist under `Ordered atomic tasks`.
+- Use a repeated task block with `Files`, `Outcome`, `Prerequisite`, `RED`, `GREEN`, and `Verification`.
+- If a behavior-changing step lacks explicit RED and GREEN checks in the main implementation plan, the plan is incomplete.
 - For non-trivial plans, group work into milestones with a definition of done, validation gate, rollback boundary, and stop/replan rule.
 - Each step should name the exact file or artifact, intended outcome, prerequisite dependency if any, and direct verification method.
 - Every prerequisite named by a step must already exist in an earlier step, milestone, or explicit external prerequisite.
@@ -105,6 +108,7 @@ Definition of a good step:
 - names the exact file or artifact
 - states the intended outcome
 - says what must already exist first, if anything
+- names the RED and GREEN checks directly in the plan when behavior changes
 - includes a direct verification method
 - covers one independently reviewable behavior unit
 - can be executed without inventing missing dependencies or hidden files

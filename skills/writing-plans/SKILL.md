@@ -63,6 +63,51 @@ Main plan:
 11. Rollback boundaries and compatibility notes
 12. Known pitfalls and unknowns
 
+For section 8, use this repeated milestone shape unless the task is truly trivial:
+
+```md
+### Milestone N: <Title>
+
+**Goal:** concise delivery target
+
+**Definition of Done:**
+- observable completion signal(s)
+
+**Validation Gate:**
+~~~bash
+exact runnable command(s)
+~~~
+
+**Rollback Boundary:** what can be safely reverted at this boundary
+
+**Stop/Replan Rule:** what discovery or failure forces the plan to stop and be revised
+
+**Commit Checkpoint:** commit message or boundary note for this milestone
+```
+
+For section 9:
+
+- When `Ordered atomic tasks` spans multiple milestones or is meant for autonomous execution, do not use a bare numbered checklist.
+- Use a repeated task block for each atomic task with this minimum shape:
+
+```md
+### Task X.Y: <Short Title>
+
+**Files:** `path/to/file`
+
+**Outcome:** one independently verifiable result
+
+**Prerequisite:** exact earlier task id, milestone, or `None`
+
+**RED:** exact failing test or validation command and the expected failure signal
+
+**GREEN:** smallest implementation change that should make the RED check pass
+
+**Verification:** exact passing command or manual check
+```
+
+- For documentation-only, config-only, or other non-behavior-changing tasks, keep the same block shape and mark `RED` / `GREEN` as `N/A - no behavior change`, with a short reason.
+
 Status companion for non-trivial plans:
 
 Use the exact section headings below for the status companion so execution skills can resume deterministically:
@@ -123,6 +168,14 @@ Optional sections:
 - Every task must be actionable without reinterpretation.
 - Each task should name the exact file or artifact, the intended outcome, any prerequisite dependency, and a direct verification method.
 - Every prerequisite named by a task must be satisfied by an earlier task, milestone, or explicit external prerequisite.
+- When `Ordered atomic tasks` spans multiple milestones or is meant for autonomous execution, do not use a bare numbered checklist.
+- Use a repeated task block for each atomic task with this minimum shape:
+  - `Files`
+  - `Outcome`
+  - `Prerequisite`
+  - `RED`
+  - `GREEN`
+  - `Verification`
 - For every behavior-changing task, require an explicit test-first cycle: RED test, verify RED, GREEN code, verify GREEN, then refactor when needed.
 - Do not leave the executor to invent the RED/GREEN sequence on the fly.
 - Each milestone must state its definition of done, validation gate, rollback boundary, stop/replan rule, and commit checkpoint.
@@ -165,6 +218,8 @@ Optional sections:
 - Coverage claims without a runnable command that actually measures coverage
 - Saying tests happen `later` while earlier tasks already rely on those tests for real confidence
 - Multi-step plans with no current milestone, milestone status, or resume protocol
+- Bare numbered task checklists in multi-milestone plans where the executor must infer files, prerequisites, or verification
+- Milestones that omit `Stop/Replan Rule`
 
 ## Self-Review
 
@@ -182,6 +237,9 @@ After writing the plan, review it once yourself before handing it off:
 10. Test realism: confirm that externally visible behavior has behavioral checks, not just compile or build checks.
 11. Rollback sanity: confirm rollback notes are tied to milestone boundaries or state changes, not a hand-wavy global reset.
 12. Compactness check: cut repeated spec material, duplicated validation sections, and any boilerplate that does not change execution clarity.
+13. Reject the plan if any multi-milestone or autonomous task omits `Files`, `Outcome`, `Prerequisite`, or `Verification`.
+14. Reject the plan if any behavior-changing task omits explicit `RED` and `GREEN` checks in the main implementation plan.
+15. Reject the plan if any milestone omits `Stop/Replan Rule`.
 
 ## Execution Handoff
 
