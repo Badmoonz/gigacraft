@@ -40,7 +40,7 @@ Execute an approved implementation plan or plan pack task by task using focused 
 - If this environment cannot dispatch subagents, stop, tell the user that `subagent-driven-development` cannot run here, and explicitly offer `executing-plans` as the fallback.
 - When a status companion exists, treat it as an active control document rather than a passive note.
 - Keep the status companion headings stable. Update `## Current Milestone`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.
-- Record the completed task id, next task id, last command run, last validation result, and any blocker in append-only form under `## Execution Log`. Do not rewrite or collapse earlier log entries.
+- Record each append-only `## Execution Log` entry with a local-time timestamp with minute precision, then the completed task id, next task id, last command run, last validation result, and any blocker. Do not rewrite or collapse earlier log entries.
 - If the main plan references a status companion but the file is missing, create `<plan base>-status.md` with the canonical headings from `writing-plans` before dispatching the first implementation task.
 - When dispatching `implementer`, use `skills/subagent-driven-development/implementer-dispatch.md` and send the template text with real values, not the file path.
 - When dispatching `code-reviewer`, use `skills/subagent-driven-development/code-reviewer-dispatch.md` and send the template text with real values, not the file path.
