@@ -37,7 +37,7 @@ Execute an approved implementation plan or plan pack inline while preserving nar
 - Use this skill only when inline execution is preferable to `subagent-driven-development`.
 - When a status companion exists, treat it as an active control document rather than a passive note.
 - Keep the status companion headings stable. Update `## Current Milestone`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.
-- Record each append-only `## Execution Log` entry with a local-time timestamp with minute precision, then the completed task id, next task id, last command run, last validation result, and any blocker. Do not rewrite or collapse earlier log entries.
+- Record each append-only `## Execution Log` entry with an actual local timestamp formatted as `YYYY-MM-DD HH:MM TZ`, then the completed task id, next task id, last command run, last validation result, and any blocker. Generate the timestamp from the current environment instead of inventing it, and never use `T...Z`, placeholder fragments such as `XX`, or fake `00:00` defaults. Do not rewrite or collapse earlier log entries.
 - If the main plan references a status companion but the file is missing, create `<plan base>-status.md` with the canonical headings from `writing-plans` before starting implementation.
 - If a repository-navigation helper is ready, record that decision and use it first for symbol lookup and file discovery before broad text-search fallback.
 - If neither `Serena` nor `code-index` is ready, record the fallback decision and use repository-local tools such as `rg`.

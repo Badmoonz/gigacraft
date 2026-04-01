@@ -85,7 +85,9 @@ Use the exact section headings below for the status companion so execution skill
 
 ## Execution Log
 
-Each appended execution-log entry should start with a timestamp in local timezone with minute precision, for example `2026-04-01 14:37 Europe/Moscow`.
+Each appended execution-log entry should start with an actual local timestamp formatted as `YYYY-MM-DD HH:MM TZ`, for example `2026-04-01 14:37 MSK`.
+Generate the timestamp from the current environment, for example with `date '+%Y-%m-%d %H:%M %Z'`, instead of inventing it from memory.
+Do not use ISO-8601 UTC forms such as `2026-04-01T00:00:00Z`, do not use placeholder fragments such as `XX`, and do not default to `00:00` unless that is the real local time.
 
 Test plan companion for non-trivial plans:
 
@@ -113,7 +115,7 @@ Optional sections:
 - Use `docs/gigacraft/plans/` as the default plan location. Do not improvise alternate default paths such as `docs/plans/`.
 - Use the same base name for companion files when they exist: `...-status.md` and `...-test-plan.md`.
 - For `...-status.md`, use the exact heading names from `Default Output Shape`. Do not rename them or replace them with synonyms.
-- In `## Execution Log`, append entries only. Each entry should start with a local-time timestamp with minute precision and record the completed task id, next task id, last command run, last validation result, any blocker, and any commit sha or message created at a milestone checkpoint.
+- In `## Execution Log`, append entries only. Each entry should start with an actual local timestamp formatted as `YYYY-MM-DD HH:MM TZ`, then record the completed task id, next task id, last command run, last validation result, any blocker, and any commit sha or message created at a milestone checkpoint.
 - In `## Current Task` and `## Next Task`, prefer exact task ids from the main plan so execution skills can resume without guesswork.
 - Before transitioning from `writing-plans` to execution, commit the approved plan artifact set if it still has an uncommitted diff.
 - Stage only the approved main plan and any companion plan-pack files for this boundary commit, and use a commit message tied to the shared plan base name.
