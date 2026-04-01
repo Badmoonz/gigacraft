@@ -21,7 +21,7 @@ Execute an approved implementation plan or plan pack inline while preserving nar
 8. Work through the plan in order and keep each implementation batch small and reviewable.
 9. For behavior-changing tasks, before editing production code, write or update the narrowest useful test first and verify it fails for the expected reason.
 10. Validate after meaningful changes, using the test plan when present.
-11. When a milestone or phase is complete and its validation gate passes, create one non-interactive git commit before starting the next milestone.
+11. When a milestone is complete and its validation gate passes, create one non-interactive git commit before starting the next milestone.
 12. After each completed task or validation attempt, update the status companion immediately before moving on.
 13. Hand off to review before declaring completion.
 
@@ -36,12 +36,12 @@ Execute an approved implementation plan or plan pack inline while preserving nar
 - Load `skills/test-driven-development/testing-anti-patterns.md` when writing or changing tests, adding mocks, or considering test-only production helpers.
 - Use this skill only when inline execution is preferable to `subagent-driven-development`.
 - When a status companion exists, treat it as an active control document rather than a passive note.
-- Keep the status companion headings stable. Update `## Current Phase`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.
+- Keep the status companion headings stable. Update `## Current Milestone`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.
 - Record the completed task id, next task id, last command run, last validation result, and any blocker in append-only form under `## Execution Log`. Do not rewrite or collapse earlier log entries.
 - If the main plan references a status companion but the file is missing, create `<plan base>-status.md` with the canonical headings from `writing-plans` before starting implementation.
 - If a repository-navigation helper is ready, record that decision and use it first for symbol lookup and file discovery before broad text-search fallback.
 - If neither `Serena` nor `code-index` is ready, record the fallback decision and use repository-local tools such as `rg`.
-- When a milestone or phase is complete and its validation gate passes, create one non-interactive git commit before starting the next milestone.
+- When a milestone is complete and its validation gate passes, create one non-interactive git commit before starting the next milestone.
 - If the worktree contains unrelated changes, missing validation, or no meaningful diff for the completed milestone, stop and surface that instead of forcing a commit.
 - Stage only the files that belong to the completed milestone and use a commit message tied to the milestone id or title.
 - Do not create empty commits.

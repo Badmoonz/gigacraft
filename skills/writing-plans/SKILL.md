@@ -65,7 +65,7 @@ Status companion for non-trivial plans:
 
 Use the exact section headings below for the status companion so execution skills can resume deterministically:
 
-## Current Phase
+## Current Milestone
 
 ## Milestone Status
 
@@ -155,7 +155,7 @@ Optional sections:
 - Manual OAuth/browser testing as the only milestone gate for an autonomous plan
 - Coverage claims without a runnable command that actually measures coverage
 - Saying tests happen `later` while earlier tasks already rely on those tests for real confidence
-- Multi-step plans with no current phase, milestone status, or resume protocol
+- Multi-step plans with no current milestone, milestone status, or resume protocol
 
 ## Self-Review
 

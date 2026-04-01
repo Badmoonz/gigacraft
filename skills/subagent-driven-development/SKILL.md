@@ -22,7 +22,7 @@ Execute an approved implementation plan or plan pack task by task using focused 
 9. For behavior-changing tasks, dispatch and review explicit RED/GREEN progress: failing test first, then minimal code, then passing test.
 10. Dispatch the current task to the `implementer` subagent immediately.
 11. Route completed work to the `code-reviewer` subagent before marking the task done.
-12. When a milestone or phase is complete, reviewed, and validated, create one non-interactive git commit before dispatching work for the next milestone.
+12. When a milestone is complete, reviewed, and validated, create one non-interactive git commit before dispatching work for the next milestone.
 13. After each completed task, review pass, or validation attempt, update the status companion immediately before dispatching the next task.
 14. Continue until the full plan is complete.
 
@@ -39,7 +39,7 @@ Execute an approved implementation plan or plan pack task by task using focused 
 - Do not merely say you are delegating. The skill is not active until an `implementer` subagent has actually been dispatched for the current task.
 - If this environment cannot dispatch subagents, stop, tell the user that `subagent-driven-development` cannot run here, and explicitly offer `executing-plans` as the fallback.
 - When a status companion exists, treat it as an active control document rather than a passive note.
-- Keep the status companion headings stable. Update `## Current Phase`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.
+- Keep the status companion headings stable. Update `## Current Milestone`, `## Milestone Status`, `## Current Task`, `## Next Task`, `## Last Completed Command and Validation`, and `## Blockers`, then append a new entry under `## Execution Log`.
 - Record the completed task id, next task id, last command run, last validation result, and any blocker in append-only form under `## Execution Log`. Do not rewrite or collapse earlier log entries.
 - If the main plan references a status companion but the file is missing, create `<plan base>-status.md` with the canonical headings from `writing-plans` before dispatching the first implementation task.
 - When dispatching `implementer`, use `skills/subagent-driven-development/implementer-dispatch.md` and send the template text with real values, not the file path.
@@ -47,7 +47,7 @@ Execute an approved implementation plan or plan pack task by task using focused 
 - Every subagent handoff must name the current task id, milestone, exact editable files, validation target, helper readiness, and status companion path when present.
 - If a repository-navigation helper is ready, record that decision, pass it to subagents, and use it first for symbol lookup and file discovery before broad text-search fallback.
 - If neither `Serena` nor `code-index` is ready, record the fallback decision, pass it to subagents, and use repository-local tools such as `rg`.
-- When a milestone or phase is complete, reviewed, and validated, create one non-interactive git commit before dispatching work for the next milestone.
+- When a milestone is complete, reviewed, and validated, create one non-interactive git commit before dispatching work for the next milestone.
 - If the worktree contains unrelated changes, missing validation, or no meaningful diff for the completed milestone, stop and surface that instead of forcing a commit.
 - Stage only the files that belong to the completed milestone and use a commit message tied to the milestone id or title.
 - Do not create empty commits.
