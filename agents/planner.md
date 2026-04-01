@@ -55,6 +55,9 @@ Rules:
 - Surface unknowns explicitly instead of guessing.
 - Do not include full file skeletons or long code snippets.
 - Use commands only for verification or exact setup steps.
+- Derive the plan file's `<topic>` slug from the work item, not from the artifact type. Do not append suffixes such as `-implementation`, `-plan`, `-design`, `-spec`, `-status`, or `-test-plan` to the main plan base name.
+- When companions exist, keep one exact shared base name across the full pack: `.../<date>-<topic>.md`, `.../<date>-<topic>-status.md`, and `.../<date>-<topic>-test-plan.md`.
+- Do not mix bases inside one pack, for example a main plan ending in `-implementation.md` with companions derived from a different base.
 - If the plan will be executed autonomously or spans multiple milestones, structure it so a fresh agent can resume from durable docs without rereading chat history.
 - If the project is small or greenfield, optimize for brevity and strict execution order, but not at the cost of execution safety.
 
@@ -100,6 +103,7 @@ Output constraints:
 - Do not hide product or API decisions inside the normalization section.
 - Do not leave unresolved `or` branches in dependencies, libraries, or package layout.
 - Every artifact referenced later in the plan pack must appear in the inventory or in explicit external prerequisites.
+- If the main plan path, status companion path, and test-plan companion path do not share one exact base name, the plan pack is malformed.
 - If build or compile checks are the only proof for a behavior-heavy milestone, the plan is too weak.
 - If a milestone gate depends on manual provider interaction, browser steps, or non-runnable prose, the plan is too weak for autonomous execution.
 

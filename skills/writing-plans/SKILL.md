@@ -36,11 +36,13 @@ For non-trivial or autonomous execution, the plan pack should usually include co
 13. If repository-navigation helper readiness is already known during planning, record that advisory note explicitly in the plan pack and tell execution to re-check it on activation.
 14. Prefer delta-from-spec planning: do not restate architecture, requirements, or examples already covered well in the design.
 15. Save the plan to `docs/gigacraft/plans/YYYY-MM-DD-<topic>.md` unless local context calls for a neighboring file. Save companion files beside it when the plan is non-trivial.
-16. Run the self-review checklist from `Self-Review`.
-17. Ask the user to review the written plan pack before any implementation starts.
-18. After explicit user approval, if the approved plan artifact set still has an uncommitted diff, create one non-interactive git commit that stages only the main plan and any companion plan-pack files before offering execution.
-19. If the approved plan artifact set is already committed with no uncommitted diff, say so explicitly before offering execution.
-20. Only after explicit user approval and the boundary commit status is clear, offer the next execution choice:
+16. Derive `<topic>` from the work item itself, not from the artifact type. Do not append suffixes such as `-implementation`, `-plan`, `-design`, `-spec`, `-status`, or `-test-plan` to `<topic>`.
+17. When companions exist, every file in the plan pack must share the exact same base name: `YYYY-MM-DD-<topic>.md`, `YYYY-MM-DD-<topic>-status.md`, and `YYYY-MM-DD-<topic>-test-plan.md`.
+18. Run the self-review checklist from `Self-Review`.
+19. Ask the user to review the written plan pack before any implementation starts.
+20. After explicit user approval, if the approved plan artifact set still has an uncommitted diff, create one non-interactive git commit that stages only the main plan and any companion plan-pack files before offering execution.
+21. If the approved plan artifact set is already committed with no uncommitted diff, say so explicitly before offering execution.
+22. Only after explicit user approval and the boundary commit status is clear, offer the next execution choice:
    - `subagent-driven-development`
    - `executing-plans`
 
@@ -158,7 +160,10 @@ Optional sections:
 - Inspect only the repo context needed to make file-accurate steps.
 - Exact file or artifact paths always.
 - Use `docs/gigacraft/plans/` as the default plan location. Do not improvise alternate default paths such as `docs/plans/`.
+- Derive `<topic>` from the feature or domain slug only. Do not bake artifact-type suffixes such as `-implementation`, `-plan`, `-design`, `-spec`, `-status`, or `-test-plan` into the main plan file name.
 - Use the same base name for companion files when they exist: `...-status.md` and `...-test-plan.md`.
+- If the main plan is `docs/gigacraft/plans/YYYY-MM-DD-<topic>.md`, the companions must be exactly `docs/gigacraft/plans/YYYY-MM-DD-<topic>-status.md` and `docs/gigacraft/plans/YYYY-MM-DD-<topic>-test-plan.md`.
+- Do not mix bases inside one plan pack, for example `...-implementation.md` with `...-test-plan.md`.
 - For `...-status.md`, use the exact heading names from `Default Output Shape`. Do not rename them or replace them with synonyms.
 - In `## Execution Log`, append entries only. Each entry should start with an actual local timestamp formatted as `YYYY-MM-DD HH:MM TZ`, then record the completed task id, next task id, last command run, last validation result, any blocker, and any commit sha or message created at a milestone checkpoint.
 - In `## Current Task` and `## Next Task`, prefer exact task ids from the main plan so execution skills can resume without guesswork.
@@ -240,6 +245,7 @@ After writing the plan, review it once yourself before handing it off:
 13. Reject the plan if any multi-milestone or autonomous task omits `Files`, `Outcome`, `Prerequisite`, or `Verification`.
 14. Reject the plan if any behavior-changing task omits explicit `RED` and `GREEN` checks in the main implementation plan.
 15. Reject the plan if any milestone omits `Stop/Replan Rule`.
+16. Reject the plan if the main plan path bakes artifact-type suffixes into `<topic>`, or if the main plan, status companion, and test-plan companion do not share one exact base name.
 
 ## Execution Handoff
 
