@@ -28,7 +28,9 @@ Turn a rough request into an approved design that fits the current repository be
    - dispatch `sre-skeptic` before `spec-reviewer` when operational risk is material
 13. Apply the strongest findings inline and re-run only the minimum necessary final review pass if the spec changed materially.
 14. Ask the user to confirm the written and reviewed spec.
-15. Stop after the design is approved, written, and reviewed; the next workflow stage is `writing-plans`.
+15. After explicit approval, if the approved spec artifact still has an uncommitted diff, create one non-interactive git commit that stages only the approved spec artifact before moving to `writing-plans`.
+16. If the approved spec artifact is already committed with no uncommitted diff, say so explicitly before moving on.
+17. Stop after the design is approved, written, reviewed, and boundary-committed; the next workflow stage is `writing-plans`.
 
 ## Design Focus
 
@@ -163,13 +165,16 @@ When the spec needs extra pressure-testing, use up to two narrow specialist pass
 - Ask for findings only, not rewrites and not implementation planning.
 - Keep the loop bounded: one pass per specialized reviewer by default, then one final `spec-reviewer` pass. Re-dispatch only after material spec changes, and stop after three external review passes before surfacing the remaining issues to the user.
 
-Apply the strongest findings inline, then ask the user to review the written spec before moving to `writing-plans`.
+Apply the strongest findings inline, then ask the user to review the written spec before moving to `writing-plans`. After explicit approval, create the boundary commit for the approved spec artifact if it is still uncommitted.
 
 ## Rules
 
 - Do not write production code.
 - Do not invoke implementation skills before the design is approved.
 - Do not skip user approval for the design.
+- Before transitioning from `brainstorming` to `writing-plans`, commit the approved spec artifact if it still has an uncommitted diff.
+- Stage only the approved spec artifact for this boundary commit and use a commit message tied to the spec topic or file name.
+- If the worktree contains unrelated changes or there is no meaningful diff for the approved spec artifact, stop and surface that instead of forcing a boundary commit.
 - Do not skip the design step just because the task looks simple; keep the design short instead.
 - Distinguish observed facts from assumptions.
 - Do not propose unrelated refactoring; include only changes that support the current goal.

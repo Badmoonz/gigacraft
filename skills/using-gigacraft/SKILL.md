@@ -15,8 +15,8 @@ Your job at the start of work is to route into the correct workflow stage instea
 
 - Prefer the skills-first path over slash commands.
 - Use `brainstorming` when the user is describing a feature, change, or design problem that is not already specified.
-- Use `writing-plans` when there is an approved spec and the next job is implementation planning.
-- Use `subagent-driven-development` or `executing-plans` only after a written implementation plan or plan pack has been reviewed and explicitly approved by the user.
+- Use `writing-plans` when there is an approved written spec and the next job is implementation planning; before leaving `brainstorming`, commit the approved spec artifact if it changed.
+- Use `subagent-driven-development` or `executing-plans` only after a written implementation plan or plan pack has been reviewed, explicitly approved by the user, and boundary-committed if it changed.
 - Use `requesting-code-review` before declaring merge readiness.
 - Use `verification-before-completion` before claiming work is done or fixed.
 - Honor explicit user requests for slash-command stages as manual fallbacks.
@@ -24,9 +24,9 @@ Your job at the start of work is to route into the correct workflow stage instea
 
 ## Stage Map
 
-1. Brainstorm and approve a design.
-2. Turn the approved design into a detailed implementation plan or plan pack and get user approval on the written artifacts.
-3. Execute the plan.
+1. Brainstorm, review, approve, and commit a written design.
+2. Turn the committed design into a detailed implementation plan or plan pack, get user approval on the written artifacts, and commit them.
+3. Execute the committed plan.
 4. Review the changes.
 5. Verify before completion.
 

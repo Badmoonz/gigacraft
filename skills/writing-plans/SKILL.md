@@ -38,7 +38,9 @@ For non-trivial or autonomous execution, the plan pack should usually include co
 15. Save the plan to `docs/gigacraft/plans/YYYY-MM-DD-<topic>.md` unless local context calls for a neighboring file. Save companion files beside it when the plan is non-trivial.
 16. Run the self-review checklist from `Self-Review`.
 17. Ask the user to review the written plan pack before any implementation starts.
-18. Only after explicit user approval, offer the next execution choice:
+18. After explicit user approval, if the approved plan artifact set still has an uncommitted diff, create one non-interactive git commit that stages only the main plan and any companion plan-pack files before offering execution.
+19. If the approved plan artifact set is already committed with no uncommitted diff, say so explicitly before offering execution.
+20. Only after explicit user approval and the boundary commit status is clear, offer the next execution choice:
    - `subagent-driven-development`
    - `executing-plans`
 
@@ -111,6 +113,9 @@ Optional sections:
 - For `...-status.md`, use the exact heading names from `Default Output Shape`. Do not rename them or replace them with synonyms.
 - In `## Execution Log`, append entries only. Each entry should record the completed task id, next task id, last command run, last validation result, any blocker, and any commit sha or message created at a milestone checkpoint.
 - In `## Current Task` and `## Next Task`, prefer exact task ids from the main plan so execution skills can resume without guesswork.
+- Before transitioning from `writing-plans` to execution, commit the approved plan artifact set if it still has an uncommitted diff.
+- Stage only the approved main plan and any companion plan-pack files for this boundary commit, and use a commit message tied to the shared plan base name.
+- If the worktree contains unrelated changes or there is no meaningful diff for the approved plan artifact set, stop and surface that instead of forcing a boundary commit.
 - Every task must be actionable without reinterpretation.
 - Each task should name the exact file or artifact, the intended outcome, any prerequisite dependency, and a direct verification method.
 - Every prerequisite named by a task must be satisfied by an earlier task, milestone, or explicit external prerequisite.
@@ -182,7 +187,7 @@ After saving the plan pack and finishing self-review, ask the user to review it 
 > "If used, companion files are at `<status path>` and `<test plan path>`."
 > "Please review them and tell me if you want any changes before we start executing."
 
-Wait for the user's response. If they request changes, update the plan and re-run self-review. Only after explicit approval should you offer the next execution choice:
+Wait for the user's response. If they request changes, update the plan and re-run self-review. After explicit approval, create the boundary commit for the approved plan artifact set if it is still uncommitted. Only then should you offer the next execution choice:
 
 - `subagent-driven-development` for task-by-task delegated execution with review checkpoints
 - `executing-plans` for inline execution in the current session with bounded batches
